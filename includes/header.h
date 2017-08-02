@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/02 14:05:10 by cchameyr         ###   ########.fr       */
+/*   Updated: 2017/08/02 18:13:38 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+
+# define TINY 255;
+# define SMALL 1024
 
 void free(void *ptr);
 void *malloc(size_t size);

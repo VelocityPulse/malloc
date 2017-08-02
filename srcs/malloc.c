@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:03:57 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/02 16:49:00 by cchameyr         ###   ########.fr       */
+/*   Updated: 2017/08/02 17:56:16 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,10 @@ void	*malloc(size_t size)
 	test_alloc1[2] = 'e';
 	ft_printf("result test_alloc1 : %s\n", test_alloc1);
 	
+
+	ft_printf("TINY SIZE          : %d\n", TINY);
+	ft_printf("SMALL SIZE         : %d\n", SMALL);
+	ft_printf("LARGE SIZE         : %d\n", LARGE);
+
 	return (NULL);
 }
