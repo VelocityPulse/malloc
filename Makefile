@@ -6,9 +6,13 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2017/08/02 12:13:32 by cchameyr         ###   ########.fr        #
+#    Updated: 2017/08/02 13:57:57 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+ifeq ($(HOSTTYPE),)
+	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
+endif
 
 FILES =				
 
@@ -18,7 +22,8 @@ OBJS =				$(addprefix objs/, $(FILES:.c=.o))
 
 CC =				gcc
 
-NAME =				malloc
+NAME =				libft_malloc_$(HOSTTYPE).so
+
 
 LIBFT =				libft/libft.a
 
@@ -31,7 +36,8 @@ RM =				rm -rf
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	$(CC) -shared -o $(FLAGS) $(OBJS) $(LIBFT) $(NAME)
+	ln -s $(NAME) libft_malloc.so
 
 $(OBJS):
 	$(CC) $(FLAGS) -c $(SRCS)
