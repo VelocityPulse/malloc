@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2017/08/02 13:57:57 by cchameyr         ###   ########.fr        #
+#    Updated: 2017/08/02 16:40:01 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-FILES =				
+FILES =				malloc.c
 
 SRCS =				$(addprefix srcs/, $(FILES))
 
@@ -24,19 +24,20 @@ CC =				gcc
 
 NAME =				libft_malloc_$(HOSTTYPE).so
 
+NAME_FINAL =		libft_malloc.so
 
 LIBFT =				libft/libft.a
 
 FSNAITIZE =			-g3 -fsanitize=address
 
-FLAGS =				-Wall -Wextra -Werror #$(FSNAITIZE)
+FLAGS =#				-Wall -Wextra -Werror #$(FSNAITIZE)
 
 RM =				rm -rf
 
-all: $(NAME)
+all: $(NAME_FINAL)
 
-$(NAME): $(LIBFT) $(OBJS)
-	$(CC) -shared -o $(FLAGS) $(OBJS) $(LIBFT) $(NAME)
+$(NAME_FINAL): $(LIBFT) $(OBJS)
+	$(CC) -shared $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 	ln -s $(NAME) libft_malloc.so
 
 $(OBJS):
@@ -58,10 +59,12 @@ clean: objs_rm
 	make clean -C ./libft/
 
 fclean: clean
-	$(RM) $(LIBFT) $(NAME)
+	$(RM) $(LIBFT) $(NAME) $(NAME_FINAL)
 
 re: fclean all
 
 r: objs_rm
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(NAME_FINAL)
 	@make
+	@echo "\n"
+	./a.out
