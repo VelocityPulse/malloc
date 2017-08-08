@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/02 18:13:38 by cchameyr         ###   ########.fr       */
+/*   Updated: 2017/08/08 11:31:14 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,39 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define TINY 255;
-# define SMALL 1024
+# define TINY_SIZE 100
+# define SMALL_SIZE 1024
+# define LARGE 1
 
-void free(void *ptr);
-void *malloc(size_t size);
-void *realloc(void *ptr, size_t size);
+# define USED 1
+# define FREE 0
+
+# define PROT PROT_WRITE|PROT_READ
+# define MAP MAP_ANONYMOUS|MAP_PRIVATE
+
+
+typedef struct		s_map
+{
+	void			*tiny;
+	void			*small;
+	size_t			max_size;
+}					t_map;
+
+typedef struct		s_block
+{
+	size_t			size;
+	struct s_block	*next;
+	struct s_block	*prev;
+	int				free;
+	void			*ptr;
+}					t_block;
+
+
+void	show_alloc_mem();
+
+void	free(void *ptr);
+void	*malloc(size_t size);
+void	*realloc(void *ptr, size_t size);
 
 
 

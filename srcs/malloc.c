@@ -5,40 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/02 14:03:57 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/02 17:56:16 by cchameyr         ###   ########.fr       */
+/*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
+/*   Updated: 2017/08/08 11:48:13 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-#include <fcntl.h>
-
-void	*malloc(size_t size) 
+static int init_map(t_map *map)
 {
-	char *test_alloc1;
-	int fd = open("/dev/zero", O_RDWR, 0);
+	struct rlimit	limit;
 
-	(void)size;
-	ft_printf("get page size      : %d\n", getpagesize());
-	ft_printf("fd value           : %d\n", fd);
-	if (fd == -1)
-		return (NULL);
-	test_alloc1 = (char *)mmap(NULL, 3, PROT_WRITE|PROT_READ, MAP_ANONYMOUS|MAP_PRIVATE, -1, 0);
-	close(fd);
+	if (map->max_size != 0)
+		return (_SUCCESS_);
+	if (getrlimit(RLIMIT_DATA, &limit) == -1)
+		return (_ERROR_);
+	map->max_size = limit.rlim_cur;
+	return (_SUCCESS_);
+}
 
-	ft_printf("adress test_alloc1 : %d\n", test_alloc1);
-	ft_printf("writing in test_alloc1...\n");
-	ft_bzero(test_alloc1, 4097);
-	test_alloc1[0] = 'q';
-	test_alloc1[1] = 'w';
-	test_alloc1[2] = 'e';
-	ft_printf("result test_alloc1 : %s\n", test_alloc1);
+void	*get_free_space(int base_size, int size, void *map)
+{
+	
+	return (NULL);
+}
+
+int		new_map(int base_size, void **map)
+{
 	
 
-	ft_printf("TINY SIZE          : %d\n", TINY);
-	ft_printf("SMALL SIZE         : %d\n", SMALL);
-	ft_printf("LARGE SIZE         : %d\n", LARGE);
 
-	return (NULL);
+	return (0);
+}
+
+
+
+void	*malloc(size_t size)
+{
+	static t_map	map = {0, 0, NULL, NULL, 0};
+	void			*ptr;
+
+	//return (NULL);
+	if (size > map.max_size || size + sizeof(t_block) > map.max_size)
+		return (NULL);
+	size += sizeof(t_block);
+	if (size - sizeof(t_block) <= TINY_SIZE)
+	{
+		if (!map.tiny && new_map(TINY_SIZE, &map.tiny))
+			return (NULL);
+		ptr = get_free_space(TINY_SIZE, size, &map.tiny);
+	}
+
+	else if (size - sizeof(t_block) <= SMALL_SIZE)
+	{
+		if (!map.small && new_map(SMALL_SIZE, &map.small))
+			return (NULL);
+		ptr = get_free_space(SMALL_SIZE, size, &map.tiny);
+
+	}
+
+	else
+	{
+	// idk what im supposed to do rofl
+	}
+
+	return (ptr);
 }

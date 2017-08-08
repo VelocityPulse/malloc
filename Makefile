@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2017/08/02 16:40:01 by cchameyr         ###   ########.fr        #
+#    Updated: 2017/08/08 10:15:17 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ LIBFT =				libft/libft.a
 
 FSNAITIZE =			-g3 -fsanitize=address
 
-FLAGS =#				-Wall -Wextra -Werror #$(FSNAITIZE)
+FLAGS =				-Wall -Wextra -Werror $(FSNAITIZE)
 
 RM =				rm -rf
 
@@ -66,5 +66,5 @@ re: fclean all
 r: objs_rm
 	$(RM) $(NAME) $(NAME_FINAL)
 	@make
-	@echo "\n"
+	gcc main.c $(LIBFT) $(NAME_FINAL)
 	./a.out
