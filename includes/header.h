@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/08 11:31:14 by cchameyr         ###   ########.fr       */
+/*   Updated: 2017/08/08 15:54:58 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define PROT PROT_WRITE|PROT_READ
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
 
+//debug
+#include "../../Perso/debug.h"
 
 typedef struct		s_map
 {
@@ -41,8 +43,8 @@ typedef struct		s_block
 {
 	size_t			size;
 	struct s_block	*next;
-	struct s_block	*prev;
-	int				free;
+	struct s_block	*back;
+	int				status;
 	void			*ptr;
 }					t_block;
 
