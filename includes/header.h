@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/08 15:54:58 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/14 15:13:57 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,19 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define TINY_SIZE 100
-# define SMALL_SIZE 1024
-# define LARGE 1
+# define PAGE_SIZE (size_t)getpagesize()
+
+# define ALIGN(SIZE) ((SIZE + 4) - (SIZE % 4))
+# define MAP_ALIGN(SIZE) ((SIZE + PAGE_SIZE) - (SIZE % PAGE_SIZE))
+
+# define MAP_HEADER sizeof(t_map)
+# define BLOCK_HEADER sizeof(t_block)
+
+# define TINY_SIZE 1024
+# define SMALL_SIZE (TINY_SIZE * 30)
+
+# define TINY_MMAP_SIZE (MAP_HEADER + ((BLOCK_HEADER + TINY_SIZE) * 100))
+# define SMALL_MMAP_SIZE (MAP_HEADER + ((BLOCK_HEADER + SMALL_SIZE) * 100))
 
 # define USED 1
 # define FREE 0
@@ -36,7 +46,6 @@ typedef struct		s_map
 {
 	void			*tiny;
 	void			*small;
-	size_t			max_size;
 }					t_map;
 
 typedef struct		s_block

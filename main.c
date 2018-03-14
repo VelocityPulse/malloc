@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2017/08/08 16:13:13 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/14 14:49:51 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ int main()
 
 	int *lol = malloc(2);
 
+	printf("%d\n", getpagesize());
+	int base_size = 5000;
+	printf("%d - %d - %d", base_size + getpagesize(), base_size % getpagesize(), base_size + getpagesize() - (base_size % getpagesize()));
+	return 1;
 	DEBUG
 	int i = 0;
 	while (i <= 2495)
 	{
 //		lol[i] = 'a';
 //		ft_printf("[%d] \n", i);
-		ft_printf("[%d] \n", lol[i]);
+//		ft_printf("[%d] \n", lol[i]);
 //		printf("%X = lol[i] = %d\n", lol[i], lol[i]);
 		i++;
 	}
