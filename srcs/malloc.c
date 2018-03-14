@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/14 15:16:09 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:33:43 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,38 +47,40 @@ void		*get_free_space(size_t base_size, size_t size, void **map)
 		return (NULL);
 }
 
-size_t		new_map(size_t map_type, void **map)
+size_t		new_map(size_t map_type, t_map **map)
 {
 	size_t mmap_size;
 	size_t size = 0;
 
-
 	if (map_type == TINY_SIZE)
-		mmap_size = TINY_MMAP_SIZE;
+		mmap_size = MAP_ALIGN(TINY_MMAP_SIZE);
 	else if (map_type == SMALL_SIZE)
-		mmap_size = SMALL_MMAP_SIZE;
-	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
+		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
+	*map = (t_map *) mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (-1);
-	set_block(*map, size); 
+	(*map)->size = mmap_size;
+	(*map)->remaining = mmap_size - sizeof(t_map);
+	(*map)->next = NULL;
+	//set_block((*map)->map, size); // WORK THIS PART IN FUTURE
 	return (0);
 }
 
 void		*malloc(size_t size)
 {
-	static t_map	map = {NULL, NULL};
+	static t_map	*tiny_map = NULL;
+	static t_map	*small_map = NULL;
+	static t_map	*large_map = NULL;
 	void			*ptr;
 
 	size = ALIGN(size);
 	ptr = NULL;
-	return NULL;
-	if (size - sizeof(t_block) <= TINY_SIZE)
+	if (size <= TINY_SIZE)
 	{
-		size += sizeof(t_block);
-		if (!map.tiny && new_map(TINY_SIZE, &map.tiny))
+		if (!tiny_map && new_map(TINY_SIZE, &tiny_map))
 			return (NULL);
-		ptr = get_free_space(TINY_SIZE, size, &map.tiny);
-		DEBUG
+		return (0);
+//		ptr = get_free_space(TINY_SIZE, size, (void **) &tiny_map);
 	}
 	/*
 	   else if (size - sizeof(t_block) <= SMALL_SIZE)

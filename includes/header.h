@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/14 15:13:57 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/14 17:26:49 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,12 @@
 //debug
 #include "../../Perso/debug.h"
 
+
 typedef struct		s_map
 {
-	void			*tiny;
-	void			*small;
+	size_t			size;
+	size_t			remaining;
+	void			*next;
 }					t_map;
 
 typedef struct		s_block
