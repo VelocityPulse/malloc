@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/14 17:10:32 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 12:18:40 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ int main()
 {
 
 	int *lol = malloc(2);
-
-	return 1;
 	DEBUG
+	lol = malloc(2);
+	DEBUG
+	lol = malloc(2);
+
+	DEBUG
+	return 1;
 	int i = 0;
 	while (i <= 2495)
 	{

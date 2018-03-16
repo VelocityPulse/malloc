@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 10:53:28 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 12:31:12 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	*map = (t_map *) mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (-1);
-	//TODO : make a bzero on the mmap
+	ft_bzero((void *)*map, mmap_size); // TODO check if it work
 	(*map)->size = mmap_size;
 	(*map)->remaining = mmap_size - sizeof(t_map);
 	(*map)->next = NULL;
@@ -46,30 +46,37 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	size_t necessary_space;
 
 	necessary_space = size + sizeof(t_block);
-	
 	last = map;
 	while (map)
 	{
+		DEBUG
 		if (map->remaining > necessary_space)
 		{
+			DEBUG
 			block = (void *)map + sizeof(t_map);
 			while (block->next != NULL) {
+				DEBUG
 				if (block->status == FREE && block->size >= necessary_space) {
 					block->status  = USED;
+					DEBUG
 					return (block->ptr);
 				}
 				block = block->next;
 			}
-			set_block(block, size);
-			//TODO sub the size to the remaining
+			set_block(block + sizeof(t_block) + block->size, size);
+			block->next = block + sizeof(t_block) + block->size;
+			map->remaining -= necessary_space;
+			DEBUG
 			return (block->ptr);
 		}
 		else
 		{
+			DEBUG
 			last = map;
 			map = map->next;
 		}
 	}
+	DEBUG
 	new_map(map_type, &last->next); // TODO check if next is well overwrite
 	return (get_free_space(map_type, last->next, size));
 }
