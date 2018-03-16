@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/14 18:05:20 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:53:28 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,8 @@ void		set_block(t_block *block, size_t size)
 {
 	block->size = size;
 	block->next = NULL;
-	block->back = NULL;
-	block->status = FREE;
+	block->status = USED;
 	block->ptr = block + sizeof(t_block);
-	DEBUG
-	printf("ptr = %X\n", (unsigned int)&block->ptr);
-}
-
-void		*get_free_space(t_map *map, size_t size)
-{
-	t_map *cur;
-	t_block *block;
-	size_t necessary_space;
-
-	necessary_space = size + sizeof(t_block);
-	
-	cur = map;
-	while (map)
-	{
-		if (map->remaining > necessary_space) 
-		{
-			block = (void *)map + sizeof(t_map);
-			while (block->next != NULL) {
-				if (block->status == FREE && block->size >= necessary_space) {
-					block->status  = USED;
-					return block->ptr;
-				}
-				block = block->next;
-				//TODO continu here
-			}
-		}
-
-	}
-
-
-
-
-
-	return NULL;
-///////////////////////////////////////////////////////////
-	t_block		*block;
-
-	block = (t_block *)*map;
-		while (block)
-		{
-				if (block->size >= base_size && block->status == FREE)
-				{
-//					set_block(block, size);
-					block->status = USED;
-					block->size = size;
-					block->next = block + size;
-					return (block->ptr);
-				}
-			block = block->next;
-		}
-		return (NULL);
 }
 
 size_t		new_map(size_t map_type, t_map **map)
@@ -92,6 +39,42 @@ size_t		new_map(size_t map_type, t_map **map)
 	return (0);
 }
 
+void		*get_free_space(size_t map_type, t_map *map, size_t size)
+{
+	t_map *last;
+	t_block *block;
+	size_t necessary_space;
+
+	necessary_space = size + sizeof(t_block);
+	
+	last = map;
+	while (map)
+	{
+		if (map->remaining > necessary_space)
+		{
+			block = (void *)map + sizeof(t_map);
+			while (block->next != NULL) {
+				if (block->status == FREE && block->size >= necessary_space) {
+					block->status  = USED;
+					return (block->ptr);
+				}
+				block = block->next;
+			}
+			set_block(block, size);
+			//TODO sub the size to the remaining
+			return (block->ptr);
+		}
+		else
+		{
+			last = map;
+			map = map->next;
+		}
+	}
+	new_map(map_type, &last->next); // TODO check if next is well overwrite
+	return (get_free_space(map_type, last->next, size));
+}
+
+
 void		*malloc(size_t size)
 {
 	static t_map	*tiny_map = NULL;
@@ -105,7 +88,7 @@ void		*malloc(size_t size)
 	{
 		if (!tiny_map && new_map(TINY_SIZE, &tiny_map))
 			return (NULL);
-		ptr = get_free_space(tiny_map, size);
+		ptr = get_free_space(TINY_SIZE, tiny_map, size);
 	}
 	/*
 	   else if (size - sizeof(t_block) <= SMALL_SIZE)

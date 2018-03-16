@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/14 17:59:27 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 10:49:55 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,13 @@ typedef struct		s_map
 {
 	size_t			size;
 	size_t			remaining;
-	void			*next;
+	struct s_map	*next;
 }					t_map;
 
 typedef struct		s_block
 {
 	size_t			size;
 	struct s_block	*next;
-	struct s_block	*back; // to remove
 	int				status;
 	void			*ptr;
 }					t_block;
