@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 10:49:55 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:35:54 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 //debug
 #include "../../Perso/debug.h"
 
+extern struct s_global		global;
 
 typedef struct		s_map
 {
@@ -50,6 +51,13 @@ typedef struct		s_map
 	struct s_map	*next;
 }					t_map;
 
+typedef struct		s_global
+{
+	t_map			*tiny_map;
+	t_map			*small_map;
+	t_map			*large_map;
+}					t_global;
+
 typedef struct		s_block
 {
 	size_t			size;
@@ -57,7 +65,6 @@ typedef struct		s_block
 	int				status;
 	void			*ptr;
 }					t_block;
-
 
 void	show_alloc_mem();
 

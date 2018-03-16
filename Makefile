@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/14 15:16:40 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/16 14:00:00 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-FILES =				malloc.c
+FILES =				malloc.c \
+					print_memory.c
 
 SRCS =				$(addprefix srcs/, $(FILES))
 

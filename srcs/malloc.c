@@ -6,18 +6,20 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 12:31:12 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:47:23 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
+
+t_global		global = {NULL, NULL, NULL};
 
 void		set_block(t_block *block, size_t size)
 {
 	block->size = size;
 	block->next = NULL;
 	block->status = USED;
-	block->ptr = block + sizeof(t_block);
+	block->ptr = (void *)block + sizeof(t_block);
 }
 
 size_t		new_map(size_t map_type, t_map **map)
@@ -49,34 +51,34 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	last = map;
 	while (map)
 	{
-		DEBUG
+	//	DEBUG
 		if (map->remaining > necessary_space)
 		{
-			DEBUG
+
+
+
+//////////////////////////////////////////////////
+	//		DEBUG
 			block = (void *)map + sizeof(t_map);
 			while (block->next != NULL) {
-				DEBUG
 				if (block->status == FREE && block->size >= necessary_space) {
 					block->status  = USED;
-					DEBUG
 					return (block->ptr);
 				}
 				block = block->next;
 			}
-			set_block(block + sizeof(t_block) + block->size, size);
+			set_block(block, size);
 			block->next = block + sizeof(t_block) + block->size;
 			map->remaining -= necessary_space;
-			DEBUG
 			return (block->ptr);
 		}
 		else
 		{
-			DEBUG
+	//		DEBUG
 			last = map;
 			map = map->next;
 		}
 	}
-	DEBUG
 	new_map(map_type, &last->next); // TODO check if next is well overwrite
 	return (get_free_space(map_type, last->next, size));
 }
@@ -84,18 +86,15 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 
 void		*malloc(size_t size)
 {
-	static t_map	*tiny_map = NULL;
-	static t_map	*small_map = NULL;
-	static t_map	*large_map = NULL;
 	void			*ptr;
 
 	size = ALIGN(size);
 	ptr = NULL;
 	if (size <= TINY_SIZE)
 	{
-		if (!tiny_map && new_map(TINY_SIZE, &tiny_map))
+		if (!global.tiny_map && new_map(TINY_SIZE, &global.tiny_map))
 			return (NULL);
-		ptr = get_free_space(TINY_SIZE, tiny_map, size);
+		ptr = get_free_space(TINY_SIZE, global.tiny_map, size);
 	}
 	/*
 	   else if (size - sizeof(t_block) <= SMALL_SIZE)
