@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 15:47:23 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:50:57 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,28 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	last = map;
 	while (map)
 	{
-	//	DEBUG
 		if (map->remaining > necessary_space)
 		{
 
+
+			
+			block = (void *)map + sizeof(t_map);
+//			printf("[%d] [%d] [%d] [%d]\n", block->size, block->next, block->status, block->ptr);
+			if (block->status == FREE && block->size == 0)
+			{
+				DEBUG
+				set_block(block, size);
+				return block->ptr;
+			}
+			while (block->next) { // check if its not FREE
+				block = block->next;
+				DEBUG
+			}
+			DEBUG
+			block->next = (void *)block + sizeof(t_block) + block->size;
+			block = block->next;
+			set_block(block, size);
+			return block->ptr;
 
 
 //////////////////////////////////////////////////

@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 15:42:41 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:53:48 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	show_alloc_mem()
 		while (block)
 		{
 			printf("0x%X - 0x%X : %zd octect(s)\n",
-					(void *)block,
-					(void *)block + block->size + sizeof(block),
+					(void *)block->ptr,
+					(void *)block + block->size + sizeof(t_block),
 					block->size);
 			block = block->next;
 		}

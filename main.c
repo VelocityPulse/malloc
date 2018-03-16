@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 15:41:36 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/16 16:49:32 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int main()
 {
 
 	int *lol = malloc(30);
-	show_alloc_mem();
-	return 1;
+	DEBUG
 	lol = malloc(30);
+	DEBUG
 	lol = malloc(2);
+	DEBUG
 	show_alloc_mem();
 
 	return 1;
