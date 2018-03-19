@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 10:45:15 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 11:51:26 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,13 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 
 	necessary_space = size + sizeof(t_block);
 	last = map;
-	DEBUG
+	//DEBUG
 	while (map)
 	{
-		printf("remaining : %zu\n", map->remaining);
+		//printf("remaining : %zu\n", map->remaining);
 		if (map->remaining > necessary_space) // EACH MAP
 		{
-//			DEBUG
+			//			DEBUG
 			block = (void *)map + sizeof(t_map);
 			if (block->status == FREE && block->size == 0) // for the first
 			{
@@ -75,7 +75,7 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 		}
 		else
 		{
-//			DEBUG
+			//			DEBUG
 			last = map;
 			map = map->next;
 		}
@@ -97,19 +97,18 @@ void		*malloc(size_t size)
 			return (NULL);
 		ptr = get_free_space(TINY_SIZE, global.tiny_map, size);
 	}
-	/*
-	   else if (size - sizeof(t_block) <= SMALL_SIZE)
-	   {
-	   if (!map.small && new_map(SMALL_SIZE, &map.small, &map.max_size))
-	   return (NULL);
-	   ptr = get_free_space(SMALL_SIZE, size, &map.tiny);
 
-	   }
-
-	   else
-	   {
-	// idk what im supposed to do rofl
+	else if (size <= SMALL_SIZE)
+	{
+		if (!global.small_map && new_map(SMALL_SIZE, &global.small_map))
+			return (NULL);
+		ptr = get_free_space(SMALL_SIZE, global.small_map, size);
 	}
-	*/
+
+	else
+	{
+		// idk what im supposed to do rofl
+	}
+
 	return (ptr);
 }

@@ -6,52 +6,48 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 10:51:21 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 12:19:04 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/header.h"
 #include <stdio.h>
 
+char	*ft_strdup_perso(const char *s1)
+{
+	int		cpt;
+	char	*s2;
+
+	cpt = 0;
+	s2 = malloc((ft_strlen(s1)));
+	if (!s2)
+		return (NULL);
+	while (s1[cpt])
+	{
+		s2[cpt] = s1[cpt];
+		cpt++;
+	}
+	s2[cpt] = '\0';
+	return (s2);
+}
+
 int main()
 {
-	int *x;
-	int index = -1;
-/*	int *lol = malloc(30);
-	DEBUG
-	lol = malloc(30);
-	DEBUG
-	lol = malloc(2);
-	lol = malloc(65);
-	lol = malloc(200);
-	DEBUG
-	show_alloc_mem();
-*/
 	
-	while (++index < 400) {
-		x = malloc(1000);
-		//DEBUG
-	}
-	index = -1;
-	while (++index < 2000) {
-	x = malloc(20);
-	}
-//	x = malloc(1000);
-//	x = malloc(1000);
+	char *str1;
+	char *str2;
+	char *str3;
 
-	//show_alloc_mem();
+	str1 = ft_strdup_perso("abcdefghijklmnopqrstwxyz123");
+	str2 = ft_strdup_perso("aaaaaaaaaaaaaaaa");
+	str3 = ft_strdup_perso("abcd");
+
+	printf("%s\n", str1);
+	printf("%s\n", str2);
+	printf("%s\n", str3);
+	printf("sizeof(size_t) : %lu\n", sizeof(size_t));
+	printf("sizeof(t_block) : %lu\n", sizeof(t_block));
+	show_alloc_mem();
+
 	return 1;
-	int i = 0;
-	while (i <= 2495)
-	{
-//		lol[i] = 'a';
-//		ft_printf("[%d] \n", i);
-//		ft_printf("[%d] \n", lol[i]);
-//		printf("%X = lol[i] = %d\n", lol[i], lol[i]);
-		i++;
-	}
-	ft_printf("\n%d\n", sizeof(t_block));
-	ft_printf("i + t_bloc = %d\n", i + sizeof(t_block));
-	ft_printf("%d\n", getpagesize());
-
 }
