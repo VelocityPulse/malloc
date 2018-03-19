@@ -6,13 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 11:51:26 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:09:26 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-t_global		global = {NULL, NULL, NULL};
+t_global		g_global = {NULL, NULL, NULL};
 
 void		set_block(t_block *block, size_t size)
 {
@@ -41,6 +41,14 @@ size_t		new_map(size_t map_type, t_map **map)
 	return (0);
 }
 
+int			check_block_pointer(t_block *block, t_map *map)
+{
+	if ((void *)block > (void *)map &&
+			(unsigned int)block < (unsigned int)map + map->size)
+		return (_SUCCESS_);
+	return (_ERROR_);
+}
+
 void		*get_free_space(size_t map_type, t_map *map, size_t size)
 {
 	t_map *last;
@@ -49,13 +57,10 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 
 	necessary_space = size + sizeof(t_block);
 	last = map;
-	//DEBUG
 	while (map)
 	{
-		//printf("remaining : %zu\n", map->remaining);
 		if (map->remaining > necessary_space) // EACH MAP
 		{
-			//			DEBUG
 			block = (void *)map + sizeof(t_map);
 			if (block->status == FREE && block->size == 0) // for the first
 			{
@@ -63,7 +68,14 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 				map->remaining -= necessary_space;
 				return block->ptr;
 			}
-			while (block->next) { // EACH BLOCK check if its not FREE
+			while (block->next) { // EACH BLOCK
+				if (block->status == FREE && block->size >= size) {
+					map->remaining -= necessary_space;
+					block->status = USED;
+					return block->ptr;
+				}
+				if (check_block_pointer(block->next, map) == _ERROR_)
+					return NULL;
 				block = block->next;
 			}
 			// FINALLY
@@ -75,15 +87,15 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 		}
 		else
 		{
-			//			DEBUG
 			last = map;
 			map = map->next;
 		}
 	}
-	new_map(map_type, &last->next); // TODO check if next is well overwrite
+	new_map(map_type, &last->next);
 	return (get_free_space(map_type, last->next, size));
 }
 
+// TODO make optimization split (if ask is 20 and block is 50, split the block)
 
 void		*malloc(size_t size)
 {
@@ -93,18 +105,17 @@ void		*malloc(size_t size)
 	ptr = NULL;
 	if (size <= TINY_SIZE)
 	{
-		if (!global.tiny_map && new_map(TINY_SIZE, &global.tiny_map))
+		if (!g_global.tiny_map && new_map(TINY_SIZE, &g_global.tiny_map))
 			return (NULL);
-		ptr = get_free_space(TINY_SIZE, global.tiny_map, size);
+		ptr = get_free_space(TINY_SIZE, g_global.tiny_map, size);
 	}
 
 	else if (size <= SMALL_SIZE)
 	{
-		if (!global.small_map && new_map(SMALL_SIZE, &global.small_map))
+		if (!g_global.small_map && new_map(SMALL_SIZE, &g_global.small_map))
 			return (NULL);
-		ptr = get_free_space(SMALL_SIZE, global.small_map, size);
+		ptr = get_free_space(SMALL_SIZE, g_global.small_map, size);
 	}
-
 	else
 	{
 		// idk what im supposed to do rofl

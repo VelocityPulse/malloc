@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/19 12:18:31 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/19 16:00:21 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ ifeq ($(HOSTTYPE),)
 endif
 
 FILES =				malloc.c \
+					free.c \
 					print_memory.c
 
 SRCS =				$(addprefix srcs/, $(FILES))

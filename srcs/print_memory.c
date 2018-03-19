@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 12:17:44 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:02:40 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,18 @@
 
 void	print_block(t_block *block, int *total)
 {
-			while (block)
+	while (block)
+	{
+		if (block->status == USED)
 		{
 			printf("0x%X - 0x%X : %zd octect(s)\n",
 					(void *)block->ptr,
 					(void *)block + block->size + sizeof(t_block),
 					block->size);
 			*total += block->size;
-			block = block->next;
 		}
+		block = block->next;
+	}
 
 }
 
@@ -67,8 +70,8 @@ void	show_alloc_mem()
 	int		total;
 
 	total = 0;
-	print_map_tiny(global.tiny_map, &total);
-	print_map_small(global.small_map, &total);
-	print_map_large(global.large_map, &total);
+	print_map_tiny(g_global.tiny_map, &total);
+	print_map_small(g_global.small_map, &total);
+	print_map_large(g_global.large_map, &total);
 	printf("Total : %d octect(s)\n", total);
 }

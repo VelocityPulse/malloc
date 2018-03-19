@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 12:19:04 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 16:01:13 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ int main()
 	str1 = ft_strdup_perso("abcdefghijklmnopqrstwxyz123");
 	str2 = ft_strdup_perso("aaaaaaaaaaaaaaaa");
 	str3 = ft_strdup_perso("abcd");
+	malloc(1023);
 
 	printf("%s\n", str1);
 	printf("%s\n", str2);
 	printf("%s\n", str3);
-	printf("sizeof(size_t) : %lu\n", sizeof(size_t));
-	printf("sizeof(t_block) : %lu\n", sizeof(t_block));
+	show_alloc_mem();
+	free(str2);
 	show_alloc_mem();
 
 	return 1;

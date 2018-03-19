@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 15:35:54 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 15:17:23 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 //debug
 #include "../../Perso/debug.h"
 
-extern struct s_global		global;
+extern struct s_global		g_global;
 
 typedef struct		s_map
 {
