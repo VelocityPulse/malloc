@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 16:49:32 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:51:21 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,31 @@
 
 int main()
 {
-
-	int *lol = malloc(30);
+	int *x;
+	int index = -1;
+/*	int *lol = malloc(30);
 	DEBUG
 	lol = malloc(30);
 	DEBUG
 	lol = malloc(2);
+	lol = malloc(65);
+	lol = malloc(200);
 	DEBUG
 	show_alloc_mem();
+*/
+	
+	while (++index < 400) {
+		x = malloc(1000);
+		//DEBUG
+	}
+	index = -1;
+	while (++index < 2000) {
+	x = malloc(20);
+	}
+//	x = malloc(1000);
+//	x = malloc(1000);
 
+	//show_alloc_mem();
 	return 1;
 	int i = 0;
 	while (i <= 2495)

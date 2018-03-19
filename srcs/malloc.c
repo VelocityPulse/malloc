@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/16 16:50:57 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/19 10:45:15 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,50 +49,33 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 
 	necessary_space = size + sizeof(t_block);
 	last = map;
+	DEBUG
 	while (map)
 	{
-		if (map->remaining > necessary_space)
+		printf("remaining : %zu\n", map->remaining);
+		if (map->remaining > necessary_space) // EACH MAP
 		{
-
-
-			
+//			DEBUG
 			block = (void *)map + sizeof(t_map);
-//			printf("[%d] [%d] [%d] [%d]\n", block->size, block->next, block->status, block->ptr);
-			if (block->status == FREE && block->size == 0)
+			if (block->status == FREE && block->size == 0) // for the first
 			{
-				DEBUG
 				set_block(block, size);
+				map->remaining -= necessary_space;
 				return block->ptr;
 			}
-			while (block->next) { // check if its not FREE
+			while (block->next) { // EACH BLOCK check if its not FREE
 				block = block->next;
-				DEBUG
 			}
-			DEBUG
+			// FINALLY
 			block->next = (void *)block + sizeof(t_block) + block->size;
 			block = block->next;
 			set_block(block, size);
-			return block->ptr;
-
-
-//////////////////////////////////////////////////
-	//		DEBUG
-			block = (void *)map + sizeof(t_map);
-			while (block->next != NULL) {
-				if (block->status == FREE && block->size >= necessary_space) {
-					block->status  = USED;
-					return (block->ptr);
-				}
-				block = block->next;
-			}
-			set_block(block, size);
-			block->next = block + sizeof(t_block) + block->size;
 			map->remaining -= necessary_space;
-			return (block->ptr);
+			return block->ptr;
 		}
 		else
 		{
-	//		DEBUG
+//			DEBUG
 			last = map;
 			map = map->next;
 		}
