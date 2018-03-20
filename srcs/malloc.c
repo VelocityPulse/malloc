@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 16:21:42 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:45:36 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int			check_block_pointer(t_block *block, t_map *map)
 void	optimize_and_split_blocks(t_block *block)
 {
 	t_block		*new_block;
-//	void		*next_split;
 	int			free_size;
 	int			total_space;
 
@@ -84,6 +83,7 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	last = map;
 	while (map)
 	{
+		// TODO make more check
 		if (map->remaining > necessary_space) // EACH MAP
 		{
 			block = (void *)map + sizeof(t_map);
@@ -131,6 +131,7 @@ void		*malloc(size_t size)
 {
 	void			*ptr;
 
+	size -= 1;
 	size = ALIGN(size);
 	ptr = NULL;
 	if (size <= TINY_SIZE)

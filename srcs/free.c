@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 15:12:45 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:28:20 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int		unmap_if_necessary(t_map *map, t_map *last)
 {
 	t_block		*block;
 
+	if (!map->next)
+		return (_ERROR_);
 	block = (void *)map + sizeof(t_map);
 	while (block)
 	{
@@ -51,6 +53,7 @@ int		unmap_if_necessary(t_map *map, t_map *last)
 		g_global.large_map = map->next;
 	if (last != NULL)
 		last->next = map->next;
+	DEBUG
 	munmap(map, map->size);
 	return (_SUCCESS_);
 }
@@ -75,6 +78,7 @@ int		check_pointer_membership(void *ptr, t_map *map)
 int		browse_map_membership(void *ptr, t_map *map)
 {
 	t_map	*last;
+	t_block *block;
 
 	last = NULL;
 	while (map)
@@ -82,7 +86,10 @@ int		browse_map_membership(void *ptr, t_map *map)
 		if (check_pointer_membership(ptr, map) == _SUCCESS_)
 		{
 			ptr = ptr - sizeof(t_block);
-			((t_block *)ptr)->status = FREE;
+			block = ((t_block *)ptr);
+			block->status = FREE;
+			map->remaining += sizeof(t_block) + block->size;
+			block->size = 0;
 			if (!unmap_if_necessary(map, last))
 				optimize_and_merge_blocks(map);
 			return (_SUCCESS_);

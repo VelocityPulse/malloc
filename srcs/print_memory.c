@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 16:21:52 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:45:22 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ void	print_full_blocks(t_block *block, int *total)
 
 void	print_block(t_block *block, int *total)
 {
-
-	print_full_blocks(block, total);
-	return ;
+//	print_full_blocks(block, total);
+//	return ;
 	while (block)
 	{
 		if (block->status == USED)
@@ -85,6 +84,7 @@ void	show_alloc_mem()
 {
 	int		total;
 
+	return ;
 	total = 0;
 	print_map_tiny(g_global.tiny_map, &total);
 	print_map_small(g_global.small_map, &total);
