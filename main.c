@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 10:42:08 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 15:14:43 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,32 @@ int main()
 	char *str1;
 	char *str2;
 	char *str3;
+	char *str4;
 
-	str1 = ft_strdup_perso("abcdefghijklmnopqrstwxyz123");
-	str2 = ft_strdup_perso("aaaaaaaaaaaaaaaa");
-	str3 = ft_strdup_perso("abcd");
-	malloc(1023);
-
-	printf("%s\n", str1);
-	printf("%s\n", str2);
-	printf("%s\n", str3);
+	ft_strdup_perso("aaaaaaaaaaaaaaaaa");
+	str1 = ft_strdup_perso("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+	str2 = ft_strdup_perso("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+	str3 = ft_strdup_perso("vvvvvvvvvvvvvvvv");
 	show_alloc_mem();
-	free(str3);
+	DEBUG
 	free(str2);
 	show_alloc_mem();
+	free(str3);
+	show_alloc_mem();
+	DEBUG
+	ft_strdup_perso("aaaa");
+	ft_strdup_perso("bbbbb");
+	ft_strdup_perso("bbbb");
+	show_alloc_mem();
 
-	return 1;
+/*	str1 = ft_strdup_perso("aaaaaaaaaaaaaaaaa");
+	str2 = ft_strdup_perso("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+	str3 = ft_strdup_perso("ccccccccccccccccc");
+	show_alloc_mem();
+	free(str2);
+	show_alloc_mem();
+	str2 = ft_strdup_perso("xx");
+	str2 = ft_strdup_perso("xx");
+	show_alloc_mem();
+*/	return 1;
 }

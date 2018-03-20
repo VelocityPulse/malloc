@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 10:40:18 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 15:10:32 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 t_global		g_global = {NULL, NULL, NULL};
 
-void		set_block(t_block *block, size_t size)
+t_block		*set_block(t_block *block, size_t size)
 {
 	block->size = size;
 	block->next = NULL;
 	block->status = USED;
 	block->ptr = (void *)block + sizeof(t_block);
+	return (block);
 }
 
 size_t		new_map(size_t map_type, t_map **map)
@@ -51,6 +52,28 @@ int			check_block_pointer(t_block *block, t_map *map)
 	return (_ERROR_);
 }
 
+void	optimize_and_split_blocks(t_block *block)
+{
+	t_block		*new_block;
+	void		*next_split;
+	int			free_size;
+	int			diff;
+
+	diff = (void *)block->next - (void *)block;
+	if (diff >= sizeof(t_block) + 4)
+	{
+		next_split = block->ptr + block->size;
+		free_size = diff - sizeof(t_block) - 1;
+		free_size = ALIGN(free_size);
+		if (next_split + sizeof(t_block) + free_size > (void *)block->next)
+			free_size -= 4;
+		new_block = set_block(next_split, free_size);
+		new_block->next = block->next;
+		block->next = new_block;
+		new_block->status = FREE;
+	}
+}
+
 void		*get_free_space(size_t map_type, t_map *map, size_t size)
 {
 	t_map *last;
@@ -70,23 +93,29 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 				map->remaining -= necessary_space;
 				return block->ptr;
 			}
-			while (block->next) { // EACH BLOCK
+			while (block) { // EACH BLOCK
 				if (block->status == FREE && block->size >= size) {
 					map->remaining -= necessary_space;
 					block->size = size;
 					block->status = USED;
+					if (block->next)
+						optimize_and_split_blocks(block);
 					return block->ptr;
 				}
-				if (check_block_pointer(block->next, map) == _ERROR_)
+				if (block->next &&
+						check_block_pointer(block->next, map) == _ERROR_)
 					return NULL;
+				if (block->next == NULL)
+				{
+					// FINALLY
+					block->next = (void *)block + sizeof(t_block) + block->size;
+					block = block->next;
+					set_block(block, size);
+					map->remaining -= necessary_space;
+					return block->ptr;
+				}
 				block = block->next;
 			}
-			// FINALLY
-			block->next = (void *)block + sizeof(t_block) + block->size;
-			block = block->next;
-			set_block(block, size);
-			map->remaining -= necessary_space;
-			return block->ptr;
 		}
 		else
 		{
@@ -97,8 +126,6 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	new_map(map_type, &last->next);
 	return (get_free_space(map_type, last->next, size));
 }
-
-// TODO make optimization split (if ask is 20 and block is 50, split the block)
 
 void		*malloc(size_t size)
 {
@@ -125,6 +152,5 @@ void		*malloc(size_t size)
 			return (NULL);
 		ptr = get_free_space(size, g_global.large_map, size);
 	}
-
 	return (ptr);
 }
