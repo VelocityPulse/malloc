@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 16:01:13 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:42:08 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int main()
 	printf("%s\n", str2);
 	printf("%s\n", str3);
 	show_alloc_mem();
+	free(str3);
 	free(str2);
 	show_alloc_mem();
 

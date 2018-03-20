@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 16:09:26 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:40:18 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,16 @@ size_t		new_map(size_t map_type, t_map **map)
 		mmap_size = MAP_ALIGN(TINY_MMAP_SIZE);
 	else if (map_type == SMALL_SIZE)
 		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
+	else
+		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
 	*map = (t_map *) mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
-		return (-1);
+		return (_ERROR_);
 	ft_bzero((void *)*map, mmap_size); // TODO check if it work
 	(*map)->size = mmap_size;
 	(*map)->remaining = mmap_size - sizeof(t_map);
 	(*map)->next = NULL;
-	return (0);
+	return (_SUCCESS_);
 }
 
 int			check_block_pointer(t_block *block, t_map *map)
@@ -71,6 +73,7 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 			while (block->next) { // EACH BLOCK
 				if (block->status == FREE && block->size >= size) {
 					map->remaining -= necessary_space;
+					block->size = size;
 					block->status = USED;
 					return block->ptr;
 				}
@@ -105,20 +108,22 @@ void		*malloc(size_t size)
 	ptr = NULL;
 	if (size <= TINY_SIZE)
 	{
-		if (!g_global.tiny_map && new_map(TINY_SIZE, &g_global.tiny_map))
+		if (!g_global.tiny_map && !new_map(TINY_SIZE, &g_global.tiny_map))
 			return (NULL);
 		ptr = get_free_space(TINY_SIZE, g_global.tiny_map, size);
 	}
 
 	else if (size <= SMALL_SIZE)
 	{
-		if (!g_global.small_map && new_map(SMALL_SIZE, &g_global.small_map))
+		if (!g_global.small_map && !new_map(SMALL_SIZE, &g_global.small_map))
 			return (NULL);
 		ptr = get_free_space(SMALL_SIZE, g_global.small_map, size);
 	}
 	else
 	{
-		// idk what im supposed to do rofl
+		if (!g_global.large_map && !new_map(size, &g_global.large_map))
+			return (NULL);
+		ptr = get_free_space(size, g_global.large_map, size);
 	}
 
 	return (ptr);

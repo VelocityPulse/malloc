@@ -6,11 +6,31 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/19 16:06:08 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 10:40:38 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
+
+void	optimize_and_merge_blocks(t_map *map)
+{
+	t_block		*block;
+
+	block = (void *)map + sizeof(t_map);
+	while (block->next)
+	{
+		if (block->status == FREE && block->next->status == FREE) 
+		{
+			block->size += block->next->size + sizeof(t_block);
+			block->next = block->next->next;
+			ft_bzero((void *)block->ptr, block->size);
+			optimize_and_merge_blocks(map);
+			return ;
+		}
+		block = block->next;
+	}
+}
+
 
 void	unmap_if_necessary(t_map *map, t_map *last)
 {
@@ -63,6 +83,7 @@ int		browse_map_membership(void *ptr, t_map *map)
 			ptr = ptr - sizeof(t_block);
 			((t_block *)ptr)->status = FREE;
 			unmap_if_necessary(map, last);
+			optimize_and_merge_blocks(map);
 			return (_SUCCESS_);
 		}
 		last = map;
@@ -70,8 +91,6 @@ int		browse_map_membership(void *ptr, t_map *map)
 	}
 	return (_ERROR_);
 }
-
-// TODO make the funciton optimize
 
 void	free(void *ptr)
 {
