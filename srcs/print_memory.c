@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 15:13:04 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:21:52 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	print_block(t_block *block, int *total)
 		block = block->next;
 	}
 }
-
-
 
 void	print_map_tiny(t_map *map, int *total)
 {

@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 15:14:43 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:24:39 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,6 @@ int main()
 	char *str3;
 	char *str4;
 
-	ft_strdup_perso("aaaaaaaaaaaaaaaaa");
-	str1 = ft_strdup_perso("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
-	str2 = ft_strdup_perso("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-	str3 = ft_strdup_perso("vvvvvvvvvvvvvvvv");
-	show_alloc_mem();
-	DEBUG
-	free(str2);
-	show_alloc_mem();
-	free(str3);
-	show_alloc_mem();
-	DEBUG
-	ft_strdup_perso("aaaa");
-	ft_strdup_perso("bbbbb");
-	ft_strdup_perso("bbbb");
-	show_alloc_mem();
 
 /*	str1 = ft_strdup_perso("aaaaaaaaaaaaaaaaa");
 	str2 = ft_strdup_perso("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");

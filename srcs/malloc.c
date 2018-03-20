@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 15:10:32 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/20 16:21:42 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ int			check_block_pointer(t_block *block, t_map *map)
 void	optimize_and_split_blocks(t_block *block)
 {
 	t_block		*new_block;
-	void		*next_split;
+//	void		*next_split;
 	int			free_size;
-	int			diff;
+	int			total_space;
 
-	diff = (void *)block->next - (void *)block;
-	if (diff >= sizeof(t_block) + 4)
+	total_space = (void *)block->next - (void *)block->ptr;
+	if (total_space - block->size >= sizeof(t_block) + 4)
 	{
-		next_split = block->ptr + block->size;
-		free_size = diff - sizeof(t_block) - 1;
+		new_block = (t_block *)((void *)block->ptr + block->size);
+		free_size = total_space - sizeof(t_block) - block->size - 1;
 		free_size = ALIGN(free_size);
-		if (next_split + sizeof(t_block) + free_size > (void *)block->next)
+		if ((void *)new_block + sizeof(t_block) + free_size > (void *)block->next)
 			free_size -= 4;
-		new_block = set_block(next_split, free_size);
+		set_block(new_block, free_size);
 		new_block->next = block->next;
 		block->next = new_block;
 		new_block->status = FREE;
