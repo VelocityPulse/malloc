@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 16:45:57 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:08:12 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	size_t mmap_size;
 
 	if (map_type == TINY_SIZE)
-		mmap_size = MAP_ALIGN((size_t)TINY_MMAP_SIZE);
+		mmap_size = MAP_ALIGN(TINY_MMAP_SIZE);
 	else if (map_type == SMALL_SIZE)
 		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
 	else
@@ -121,7 +121,6 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 			map = map->next;
 		}
 	}
-	printf("map remaining %d\n", last->remaining);
 	new_map(map_type, &last->next);
 	return (get_free_space(map_type, last->next, size));
 }

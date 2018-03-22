@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/19 16:00:21 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/22 17:04:59 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ LIBFT =				libft/libft.a
 
 FSNAITIZE =			-g3 -fsanitize=address
 
-FLAGS =				$(FSNAITIZE)#-Wall -Wextra -Werror $(FSNAITIZE)
+FLAGS =				#$(FSNAITIZE)#-Wall -Wextra -Werror $(FSNAITIZE)
 
 RM =				rm -rf
 
