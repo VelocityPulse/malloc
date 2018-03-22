@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 17:16:33 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:40:12 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	optimize_and_merge_blocks(t_map *map)
 	block = (void *)map + sizeof(t_map);
 	while (block->next)
 	{
-		if (block->status == FREE && block->next->status == FREE) 
+		if (block->status == FREE && block->next->status == FREE)
 		{
 			block->size += block->next->size + sizeof(t_block);
 			block->next = block->next->next;
@@ -29,7 +29,6 @@ void	optimize_and_merge_blocks(t_map *map)
 		block = block->next;
 	}
 }
-
 
 int		unmap_if_necessary(t_map *map, t_map *last)
 {
@@ -84,7 +83,7 @@ int		browse_map_membership(void *ptr, t_map *map)
 		if (check_pointer_membership(ptr, map) == _SUCCESS_)
 		{
 			ptr = ptr - sizeof(t_block);
-			block = ((t_block *)ptr);
+			block = (t_block *)ptr;
 			block->status = FREE;
 			map->remaining += sizeof(t_block) + block->size;
 			if (!unmap_if_necessary(map, last))

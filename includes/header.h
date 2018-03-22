@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 17:05:59 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:45:03 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 # define PAGE_SIZE (size_t)getpagesize()
 
 # define ALIGN(SIZE) (((SIZE - 1) + 4) - ((SIZE - 1) % 4))
-//# define MAP_ALIGN(SIZE) (((SIZE - 1) + PAGE_SIZE) - ((SIZE - 1) % PAGE_SIZE))
-# define MAP_ALIGN(SIZE) (((((SIZE)-1)/PAGE_SIZE)*PAGE_SIZE)+PAGE_SIZE)
+# define MAP_ALIGN(SIZE) (((SIZE - 1) + PAGE_SIZE) - ((SIZE - 1) % PAGE_SIZE))
 
 # define MAP_HEADER sizeof(t_map)
 # define BLOCK_HEADER sizeof(t_block)
