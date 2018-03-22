@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 17:45:36 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:52:24 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ size_t		new_map(size_t map_type, t_map **map)
 	*map = (t_map *) mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
-	ft_bzero((void *)*map, mmap_size); // TODO check if it work
 	(*map)->size = mmap_size;
 	(*map)->remaining = mmap_size - sizeof(t_map);
 	(*map)->next = NULL;
@@ -131,7 +130,6 @@ void		*malloc(size_t size)
 {
 	void			*ptr;
 
-	size -= 1;
 	size = ALIGN(size);
 	ptr = NULL;
 	if (size <= TINY_SIZE)

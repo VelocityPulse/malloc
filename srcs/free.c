@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/20 17:28:20 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 12:54:22 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	optimize_and_merge_blocks(t_map *map)
 		{
 			block->size += block->next->size + sizeof(t_block);
 			block->next = block->next->next;
-			ft_bzero((void *)block->ptr, block->size);
 			optimize_and_merge_blocks(map);
 			return ;
 		}
@@ -89,7 +88,6 @@ int		browse_map_membership(void *ptr, t_map *map)
 			block = ((t_block *)ptr);
 			block->status = FREE;
 			map->remaining += sizeof(t_block) + block->size;
-			block->size = 0;
 			if (!unmap_if_necessary(map, last))
 				optimize_and_merge_blocks(map);
 			return (_SUCCESS_);
