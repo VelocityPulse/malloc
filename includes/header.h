@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 13:14:30 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 16:45:48 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define PAGE_SIZE (size_t)getpagesize() * 16
+# define PAGE_SIZE (size_t)getpagesize()
 
 # define ALIGN(SIZE) (((SIZE - 1) + 4) - ((SIZE - 1) % 4))
-# define MAP_ALIGN(SIZE) ((SIZE + PAGE_SIZE) - (SIZE % PAGE_SIZE))
+//# define MAP_ALIGN(SIZE) (((SIZE - 1) + PAGE_SIZE) - ((SIZE - 1) % PAGE_SIZE))
+# define MAP_ALIGN(SIZE) (((((SIZE)-1)/PAGE_SIZE)*PAGE_SIZE)+PAGE_SIZE)
 
 # define MAP_HEADER sizeof(t_map)
 # define BLOCK_HEADER sizeof(t_block)
@@ -44,6 +45,10 @@
 
 extern struct s_global		g_global;
 
+/*
+** map size : 24
+*/
+
 typedef struct		s_map
 {
 	size_t			size;
@@ -57,6 +62,10 @@ typedef struct		s_global
 	t_map			*small_map;
 	t_map			*large_map;
 }					t_global;
+
+/*
+** block size : 32
+*/
 
 typedef struct		s_block
 {
