@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 12:22:40 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 13:14:30 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
-# define PAGE_SIZE (size_t)getpagesize()
+# define PAGE_SIZE (size_t)getpagesize() * 16
 
 # define ALIGN(SIZE) (((SIZE - 1) + 4) - ((SIZE - 1) % 4))
 # define MAP_ALIGN(SIZE) ((SIZE + PAGE_SIZE) - (SIZE % PAGE_SIZE))
@@ -62,7 +62,7 @@ typedef struct		s_block
 {
 	size_t			size;
 	struct s_block	*next;
-	int				status;
+	char			status;
 	void			*ptr;
 }					t_block;
 

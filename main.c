@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 12:51:53 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 13:43:13 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ char	*ft_strdup_perso(const char *s1)
 int main()
 {
 
-/*	int        i;
+	int        i;
 	size_t    j;
 	char    *s;
+
 
 	i = 0;
 	j = 1024;
@@ -49,9 +50,9 @@ int main()
 	}
 	show_alloc_mem();
 	return (0);
-*/
+
 	
-		
+	/*	
 		char *str1;
 		char *str2;
 		char *str3;
@@ -76,5 +77,5 @@ int main()
 		free(str3);
 		show_alloc_mem();
 
-	return 1;
+*/	return 1;
 }

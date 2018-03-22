@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 12:54:22 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 13:38:41 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		unmap_if_necessary(t_map *map, t_map *last)
 		g_global.large_map = map->next;
 	if (last != NULL)
 		last->next = map->next;
-	DEBUG
 	munmap(map, map->size);
 	return (_SUCCESS_);
 }

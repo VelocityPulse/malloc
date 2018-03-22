@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 12:52:24 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 13:32:02 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_block		*set_block(t_block *block, size_t size)
 size_t		new_map(size_t map_type, t_map **map)
 {
 	size_t mmap_size;
-	size_t size = 0;
 
 	if (map_type == TINY_SIZE)
 		mmap_size = MAP_ALIGN(TINY_MMAP_SIZE);
@@ -34,7 +33,7 @@ size_t		new_map(size_t map_type, t_map **map)
 		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
 	else
 		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
-	*map = (t_map *) mmap(NULL, mmap_size, PROT, MAP, -1, 0);
+	*map = (t_map *)mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
 	(*map)->size = mmap_size;
@@ -107,7 +106,7 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 				if (block->next == NULL)
 				{
 					// FINALLY
-					block->next = (void *)block + sizeof(t_block) + block->size;
+					block->next = block->ptr + block->size;
 					block = block->next;
 					set_block(block, size);
 					map->remaining -= necessary_space;
