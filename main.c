@@ -6,12 +6,22 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 17:45:43 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/23 10:46:24 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/header.h"
 #include <stdio.h>
+
+int		ft_strlen(const char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+		;
+	return (i);
+}
 
 char	*ft_strdup_perso(const char *s1)
 {
