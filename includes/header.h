@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/23 10:45:22 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/22 17:45:03 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,7 @@
 # include <sys/resource.h>
 # include <unistd.h>
 # include <stdlib.h>
-
-# ifndef RETURN_STAT
-#  define RETURN_STAT
-
-#  define _FAULT_		0x00
-#  define _ERROR_		0x00
-#  define _SUCCESS_		0x01
-
-# endif
-
+# include "../libft/libft.h"
 
 # define PAGE_SIZE (size_t)getpagesize()
 
