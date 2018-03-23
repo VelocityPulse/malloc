@@ -6,14 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 17:45:43 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:54:22 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/header.h"
-#include <stdio.h>
 
-char	*ft_strdup_perso(const char *s1)
+/*char	*ft_strdup_perso(const char *s1)
 {
 	int		cpt;
 	char	*s2;
@@ -30,7 +29,7 @@ char	*ft_strdup_perso(const char *s1)
 	s2[cpt] = '\0';
 	return (s2);
 }
-
+*/
 int main()
 {
 

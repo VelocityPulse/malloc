@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/22 17:38:07 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/23 16:54:43 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ size_t		new_map(size_t map_type, t_map **map)
 		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
 	else
 		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
-	*map = (t_map *)mmap(NULL, mmap_size, PROT, MAP, -1, 0);
+	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
 	(*map)->size = mmap_size;
@@ -85,6 +85,9 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 		if (map->remaining > necessary_space) // EACH MAP
 		{
 			block = (void *)map + sizeof(t_map);
+			/*printf("map : %d\n", (void *)map);
+			printf("map2 : %d\n", map);
+			printf("block : %d\n", (void *)block); */
 			if (block->status == FREE && block->size == 0) // for the first
 			{
 				set_block(block, size);
@@ -137,7 +140,6 @@ void		*malloc(size_t size)
 			return (NULL);
 		ptr = get_free_space(TINY_SIZE, g_global.tiny_map, size);
 	}
-
 	else if (size <= SMALL_SIZE)
 	{
 		if (!g_global.small_map && !new_map(SMALL_SIZE, &g_global.small_map))

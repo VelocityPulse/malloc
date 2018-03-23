@@ -1,4 +1,6 @@
-int main()
+#include "includes/header.h"
+
+int            main(void)
 {
 	int        i;
 	char    *addr;
