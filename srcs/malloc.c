@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 13:40:58 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 16:30:04 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	else
 		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
 	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
-//	write(1, "my malloc\n", 11);
+	printf(" debug %d\n", mmap_size);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
 	(*map)->size = mmap_size;
@@ -82,13 +82,9 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 	last = map;
 	while (map)
 	{
-		// TODO make more check
 		if (map->remaining > necessary_space) // EACH MAP
 		{
 			block = (void *)map + sizeof(t_map);
-			/*printf("map : %d\n", (void *)map);
-			printf("map2 : %d\n", map);
-			printf("block : %d\n", (void *)block); */
 			if (block->status == FREE && block->size == 0) // for the first
 			{
 				set_block(block, size);

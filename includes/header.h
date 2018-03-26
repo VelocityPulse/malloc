@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 12:18:28 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:24:10 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include "../libft/libft.h"
-//
+//# include <stdlib.h>
+//# include "../libft/libft.h"
+
 # ifndef RETURN_STAT
 #  define RETURN_STAT
 
@@ -50,7 +50,7 @@
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
 
 //debug
-//#include "../../Perso/debug.h"
+#include "../../Perso/debug.h"
 
 extern struct s_global		g_global;
 
@@ -86,11 +86,14 @@ typedef struct		s_block
 }					t_block;
 
 void	show_alloc_mem();
+void	show_full_alloc_mem();
 
 void	free(void *ptr);
 void	*malloc(size_t size);
 void	*realloc(void *ptr, size_t size);
 
-
+void	ft_putstr(char *str);
+void	ft_putnbr(int n);
+void	ft_puthexa(unsigned int n);
 
 #endif

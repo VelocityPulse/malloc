@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/26 12:28:54 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/26 14:59:35 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ endif
 
 FILES =				malloc.c \
 					free.c \
-					print_memory.c
+					print_memory.c \
+					commons_1.c
 
 SRCS =				$(addprefix srcs/, $(FILES))
 
@@ -69,5 +70,6 @@ re: fclean all
 r: objs_rm
 	$(RM) $(OBJS) $(NAME) $(NAME_FINAL)
 	@make
-	gcc main.c
+#	gcc main.c
+	gcc main.c -L ./ -lft_malloc
 	./a.out

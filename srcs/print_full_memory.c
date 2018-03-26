@@ -6,29 +6,37 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 15:03:11 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 15:03:26 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-void	print_block(t_block *block, int *total)
+void	print_full_block(t_block *block, int *total)
 {
+	int		total_block;
+
+	total_block = 0;
 	while (block)
 	{
-		if (block->status == USED)
-		{
-			ft_putstr("0x");
-			ft_puthexa((unsigned int)block->ptr);
-			ft_putstr(" - 0x");
-			ft_puthexa((unsigned int)block->ptr + block->size);
-			ft_putstr(" : ");
-			ft_putnbr(block->size);
-			ft_putstr(" octect(s)\n");
-			*total += block->size;
-		}
+		ft_putstr("Block : 0x");
+		ft_puthexa((unsigned int)block);
+		ft_putstr(" users : 0x");
+		ft_puthexa((unsigned int)block->ptr);
+		ft_putstr(" end : 0x");
+		ft_puthexa((unsigned int)block->ptr + block->size);
+		ft_putstr(" status : [");
+		ft_putnbr(block->status);
+		ft_putstr("] octect(s) : ");
+		ft_putnbr(block->size);
+		ft_putstr("\n");
+		*total += block->size;
 		block = block->next;
+		total_block++;
 	}
+	ft_putstr("Number of block(s) : ");
+	ft_putnbr(total_block);
+	ft_putstr("\n");
 }
 
 void	print_map_tiny(t_map *map, int *total)
@@ -40,7 +48,7 @@ void	print_map_tiny(t_map *map, int *total)
 		ft_puthexa((unsigned int)map);
 		ft_putstr("\n");
 		block = (void *)map + sizeof(t_map);
-		print_block(block, total);
+		print_full_block(block, total);
 		map = map->next;
 	}
 }
@@ -54,7 +62,7 @@ void	print_map_small(t_map *map, int *total)
 		ft_puthexa((unsigned int)map);
 		ft_putstr("\n");
 		block = (void *)map + sizeof(t_map);
-		print_block(block, total);
+		print_full_block(block, total);
 		map = map->next;
 	}
 
@@ -68,12 +76,12 @@ void	print_map_large(t_map *map, int *total) {
 		ft_puthexa((unsigned int)map);
 		ft_putstr("\n");
 		block = (void *)map + sizeof(t_map);
-		print_block(block, total);
+		print_full_block(block, total);
 		map = map->next;
 	}
 }
 
-void	show_alloc_mem()
+void	show_full_alloc_mem()
 {
 	int		total;
 
