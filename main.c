@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/23 16:54:22 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 11:16:31 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 	return (s2);
 }
 */
+
 int main()
 {
 
@@ -49,32 +50,4 @@ int main()
 	}
 //	show_alloc_mem();
 	return (0);
-
-	
-	/*	
-		char *str1;
-		char *str2;
-		char *str3;
-		char *str4;
-
-		str1 = ft_strdup_perso("aaaaaaaaaaa");
-		str2 = ft_strdup_perso("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-		str3 = ft_strdup_perso("fffffffffff");
-		str4 = ft_strdup_perso("fffffffffffffffffffffffffff");
-		show_alloc_mem();
-
-		free(str2);
-		show_alloc_mem();
-
-		str2 = ft_strdup_perso("aaaaaa");
-		show_alloc_mem();
-
-		free(str4);
-		str4 = ft_strdup_perso("ddddddd");
-		show_alloc_mem();
-
-		free(str3);
-		show_alloc_mem();
-
-*/	return 1;
 }
