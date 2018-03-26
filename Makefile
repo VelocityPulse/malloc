@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/26 14:59:35 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/26 18:16:36 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ endif
 FILES =				malloc.c \
 					free.c \
 					print_memory.c \
+					print_full_memory.c \
 					commons_1.c
 
 SRCS =				$(addprefix srcs/, $(FILES))

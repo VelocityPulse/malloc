@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 15:24:10 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 18:14:27 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
 
 //debug
-#include "../../Perso/debug.h"
+//#include "../../Perso/debug.h"
 
 extern struct s_global		g_global;
 
@@ -81,7 +81,6 @@ typedef struct		s_block
 	size_t			size;
 	struct s_block	*next;
 	char			status;
-	char			pad[7];
 	void			*ptr;
 }					t_block;
 

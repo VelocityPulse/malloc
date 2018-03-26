@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 16:30:04 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 18:18:44 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_global		g_global = {NULL, NULL, NULL};
 
 t_block		*set_block(t_block *block, size_t size)
 {
+	
 	block->size = size;
 	block->next = NULL;
 	block->status = USED;
@@ -34,7 +35,6 @@ size_t		new_map(size_t map_type, t_map **map)
 	else
 		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
 	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
-	printf(" debug %d\n", mmap_size);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
 	(*map)->size = mmap_size;
@@ -72,54 +72,77 @@ void	optimize_and_split_blocks(t_block *block)
 	}
 }
 
+void		*find_block(t_block *block, t_map *map, size_t n_s, int size)
+{
+	while (block) {
+		if (block->status == FREE && block->size >= size) {
+			block->size = size;
+			block->status = USED;
+			map->remaining -= n_s;
+			if (block->next)
+				optimize_and_split_blocks(block);
+			return block->ptr;
+		}
+		if (block->next &&
+				check_block_pointer(block->next, map) == _ERROR_)
+			return (void *)-1;
+		if (block->next == NULL)
+		{
+			map->remaining -= n_s;
+			block->next = block->ptr + block->size;
+			block = block->next;
+			set_block(block, size);
+			return block->ptr;
+		}
+		block = block->next;
+	}
+	return NULL;
+}
+
+void		*check_map(t_map *map, size_t n_s, int size)
+{
+	void	*ret;
+	t_block	*block;
+
+	if (map->remaining > n_s)
+	{
+		block = (void *)map + sizeof(t_map);
+		if (block->status == FREE && block->size == 0)
+		{
+			set_block(block, size);
+			map->remaining -= n_s;
+			return block->ptr;
+		}
+		ret = find_block(block, map, n_s, size);
+		if ((int)ret == -1)
+			return (void *)-1;
+		else if (ret != NULL)
+			return ret;
+	}
+	return NULL;
+}
+
 void		*get_free_space(size_t map_type, t_map *map, size_t size)
 {
 	t_map *last;
 	t_block *block;
+	void	*ret;
 	size_t necessary_space;
 
 	necessary_space = size + sizeof(t_block);
 	last = map;
 	while (map)
 	{
-		if (map->remaining > necessary_space) // EACH MAP
-		{
-			block = (void *)map + sizeof(t_map);
-			if (block->status == FREE && block->size == 0) // for the first
-			{
-				set_block(block, size);
-				map->remaining -= necessary_space;
-				return block->ptr;
-			}
-			while (block) { // EACH BLOCK
-				if (block->status == FREE && block->size >= size) {
-					map->remaining -= necessary_space;
-					block->size = size;
-					block->status = USED;
-					if (block->next)
-						optimize_and_split_blocks(block);
-					return block->ptr;
-				}
-				if (block->next &&
-						check_block_pointer(block->next, map) == _ERROR_)
-					return NULL;
-				if (block->next == NULL)
-				{
-					// FINALLY
-					block->next = block->ptr + block->size;
-					block = block->next;
-					set_block(block, size);
-					map->remaining -= necessary_space;
-					return block->ptr;
-				}
-				block = block->next;
-			}
-		}
-		else
+		ret = check_map(map, necessary_space, size);
+		if (ret == NULL)
 		{
 			last = map;
 			map = map->next;
 		}
+		else if ((int)ret == -1)
+			return NULL;
+		else if (ret != NULL)
+			return ret;
 	}
 	new_map(map_type, &last->next);
 	return (get_free_space(map_type, last->next, size));

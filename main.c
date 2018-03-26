@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 14:18:31 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 16:29:39 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 18:08:18 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int main()
 {
 	int        i;
+	int			b;
 	size_t    j;
 	char    *s;
 
@@ -22,13 +23,15 @@ int main()
 
 	i = 0;
 	j = 1024;
-	while (i < (int)j)
+	b = 99;
+	while (i < (int)b)
 	{
 		s = (char*)malloc(j);
 		s[0] = 42;
-		//free(s);
+		free(s);
 		i++;
 	}
+//	show_full_alloc_mem();
 //	show_alloc_mem();
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 15:27:16 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 17:25:51 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ int		browse_map_membership(void *ptr, t_map *map)
 	t_map	*last;
 	t_block *block;
 
-
-	printf("remaining : %d\n", map->remaining);
 	last = NULL;
 	while (map)
 	{

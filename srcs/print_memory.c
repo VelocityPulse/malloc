@@ -6,13 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 15:03:11 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 17:11:45 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/header.h"
 
-void	print_block(t_block *block, int *total)
+static void	print_block(t_block *block, int *total)
 {
 	while (block)
 	{
@@ -31,7 +31,7 @@ void	print_block(t_block *block, int *total)
 	}
 }
 
-void	print_map_tiny(t_map *map, int *total)
+static void	print_map_tiny(t_map *map, int *total)
 {
 	t_block *block;
 	while (map)
@@ -45,7 +45,7 @@ void	print_map_tiny(t_map *map, int *total)
 	}
 }
 
-void	print_map_small(t_map *map, int *total)
+static void	print_map_small(t_map *map, int *total)
 {
 	t_block *block;
 	while (map)
@@ -60,7 +60,7 @@ void	print_map_small(t_map *map, int *total)
 
 }
 
-void	print_map_large(t_map *map, int *total) {
+static void	print_map_large(t_map *map, int *total) {
 	t_block *block;
 	while (map)
 	{
