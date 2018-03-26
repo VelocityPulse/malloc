@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/22 17:04:59 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/26 12:28:54 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,5 +69,5 @@ re: fclean all
 r: objs_rm
 	$(RM) $(OBJS) $(NAME) $(NAME_FINAL)
 	@make
-	gcc main.c $(LIBFT) $(NAME_FINAL)
+	gcc main.c
 	./a.out

@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/23 16:30:22 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 12:18:28 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+//
+# ifndef RETURN_STAT
+#  define RETURN_STAT
+
+#  define _FAULT_		0x00
+#  define _ERROR_		0x00
+#  define _SUCCESS_		0x01
+
+# endif
+
 
 # define PAGE_SIZE (size_t)getpagesize()
 
@@ -40,7 +50,7 @@
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
 
 //debug
-#include "../../Perso/debug.h"
+//#include "../../Perso/debug.h"
 
 extern struct s_global		g_global;
 
@@ -71,6 +81,7 @@ typedef struct		s_block
 	size_t			size;
 	struct s_block	*next;
 	char			status;
+	char			pad[7];
 	void			*ptr;
 }					t_block;
 

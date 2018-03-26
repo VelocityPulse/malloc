@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/23 16:54:43 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/26 13:40:58 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	else
 		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
 	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
+//	write(1, "my malloc\n", 11);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
 	(*map)->size = mmap_size;
