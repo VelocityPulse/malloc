@@ -6,11 +6,11 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 17:11:45 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:36:08 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../includes/malloc.h"
 
 static void	print_block(t_block *block, int *total)
 {

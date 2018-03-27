@@ -6,11 +6,11 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/26 13:58:38 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 14:43:44 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:36:29 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../includes/malloc.h"
 
 void	ft_putchar(char c)
 {

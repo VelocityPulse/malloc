@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 18:14:27 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:34:51 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 //debug
 //#include "../../Perso/debug.h"
 
-extern struct s_global		g_global;
+extern struct s_global	g_global;
 
 /*
 ** map size : 24
@@ -84,15 +84,22 @@ typedef struct		s_block
 	void			*ptr;
 }					t_block;
 
-void	show_alloc_mem();
-void	show_full_alloc_mem();
+void				show_alloc_mem();
+void				show_full_alloc_mem();
 
-void	free(void *ptr);
-void	*malloc(size_t size);
-void	*realloc(void *ptr, size_t size);
+void				free(void *ptr);
+void				*malloc(size_t size);
+void				*realloc(void *ptr, size_t size);
 
-void	ft_putstr(char *str);
-void	ft_putnbr(int n);
-void	ft_puthexa(unsigned int n);
+void				*get_free_space(size_t map_type, t_map *map, size_t size);
+size_t				new_map(size_t map_type, t_map **map);
+
+t_block				*set_block(t_block *block, size_t size);
+int					check_block_in_map(t_block *block, t_map *map);
+int					check_pointer_validity(void *ptr, t_map *map);
+
+void				ft_putstr(char *str);
+void				ft_putnbr(int n);
+void		ft_puthexa(unsigned int n);
 
 #endif

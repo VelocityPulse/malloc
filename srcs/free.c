@@ -6,11 +6,11 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/26 17:25:51 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:33:32 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/header.h"
+#include "../includes/malloc.h"
 
 void	optimize_and_merge_blocks(t_map *map)
 {
@@ -55,22 +55,6 @@ int		unmap_if_necessary(t_map *map, t_map *last)
 	return (_SUCCESS_);
 }
 
-int		check_pointer_membership(void *ptr, t_map *map)
-{
-	t_block		*block;
-
-	if (ptr > (void *)map && (unsigned int)ptr < (unsigned int)map + map->size)
-	{
-		block = (void *)map + sizeof(t_map);
-		while (block)
-		{
-			if (block->ptr == ptr)
-				return (_SUCCESS_);
-			block = block->next;
-		}
-	}
-	return (_ERROR_);
-}
 
 int		browse_map_membership(void *ptr, t_map *map)
 {
@@ -80,7 +64,7 @@ int		browse_map_membership(void *ptr, t_map *map)
 	last = NULL;
 	while (map)
 	{
-		if (check_pointer_membership(ptr, map) == _SUCCESS_)
+		if (check_pointer_validity(ptr, map) == _SUCCESS_)
 		{
 			ptr = ptr - sizeof(t_block);
 			block = (t_block *)ptr;
