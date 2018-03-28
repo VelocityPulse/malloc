@@ -6,15 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:29:12 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:08:19 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
 t_global		g_global = {NULL, NULL, NULL};
-
-
 
 void		*malloc(size_t size)
 {

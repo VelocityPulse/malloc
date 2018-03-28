@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/28 10:43:56 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/28 12:05:56 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ NAME =				libft_malloc_$(HOSTTYPE).so
 
 NAME_FINAL =		libft_malloc.so
 
-LIBFT =				libft/libft.a
-
 FSNAITIZE =			-g3 -fsanitize=address
 
 FLAGS =				#$(FSNAITIZE)#-Wall -Wextra -Werror $(FSNAITIZE)
@@ -43,8 +41,8 @@ RM =				rm -rf
 
 all: $(NAME_FINAL)
 
-$(NAME_FINAL): $(LIBFT) $(OBJS)
-	$(CC) -shared $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+$(NAME_FINAL): $(OBJS)
+	$(CC) -shared $(FLAGS) $(OBJS) -o $(NAME)
 	ln -s $(NAME) libft_malloc.so
 
 $(OBJS):
@@ -59,14 +57,10 @@ objs_rm:
 	@$(RM) objs
 	@$(RM) $(FILES:.c=.o)
 
-$(LIBFT):
-	make -C ./libft/
-
 clean: objs_rm
-	make clean -C ./libft/
 
 fclean: clean
-	$(RM) $(LIBFT) $(NAME) $(NAME_FINAL)
+	$(RM) $(NAME) $(NAME_FINAL)
 	@$(RM) a.out
 
 re: fclean all
@@ -76,4 +70,4 @@ r: objs_rm
 	@make
 #	gcc main.c
 	gcc main.c -L ./ -lft_malloc
-	./a.out
+#	./a.out

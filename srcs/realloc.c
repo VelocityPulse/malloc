@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:38:20 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 10:45:35 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 12:18:32 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	*realloc(void *ptr, size_t size)
 	t_map *map;
 	void	*ret;
 
+	if (ptr == NULL)
+		return (malloc(size));
 	if (ptr == NULL || size == 0)
 		return NULL;
 	map = g_global.tiny_map;
@@ -64,5 +66,10 @@ void	*realloc(void *ptr, size_t size)
 		return ret;
 	if ((ret = realloc_process(ptr, g_global.large_map, size)) != _ERROR_)
 		return ret;
+	if (!size)
+	{
+		free(ptr);
+		return (malloc(size));
+	}
 	return NULL;
 }
