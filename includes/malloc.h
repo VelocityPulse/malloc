@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 14:26:50 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:26:34 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <unistd.h>
+# include <pthread.h>
 //# include <stdlib.h>
 //# include "../libft/libft.h"
 
@@ -53,6 +54,7 @@
 #include "../../Perso/debug.h"
 
 extern struct s_global	g_global;
+extern pthread_mutex_t	g_locker;
 
 /*
 ** map size : 24
@@ -90,6 +92,7 @@ void				show_full_alloc_mem();
 void				free(void *ptr);
 void				*malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
+void				*reallocf(void *ptr, size_t size);
 
 void				*get_free_space(size_t map_type, t_map *map, size_t size);
 size_t				new_map(size_t map_type, t_map **map);

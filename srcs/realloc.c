@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:38:20 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 13:49:32 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:26:12 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,21 @@ static void		*realloc_process(void *ptr, t_map *map, size_t size)
 	return (_ERROR_);
 }
 
+void	*reallocf(void *ptr, size_t size)
+{
+	void	*ret;
+
+	ret = NULL;
+	if ((ret = realloc(ptr, size)) == NULL)
+		free(ptr);
+	return (ret);
+}
+
 void	*realloc(void *ptr, size_t size)
 {
 	void	*ret;
 
+	pthread_mutex_lock(&g_locker);
 	if (ptr == NULL)
 		return (malloc(size));
 	if (ptr == NULL || size == 0)
@@ -71,5 +82,6 @@ void	*realloc(void *ptr, size_t size)
 		free(ptr);
 		return (malloc(size));
 	}
+	pthread_mutex_unlock(&g_locker);
 	return NULL;
 }

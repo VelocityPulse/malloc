@@ -6,19 +6,19 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/04 10:36:27 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 14:24:56 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:19:45 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
 t_global		g_global = {NULL, NULL, NULL};
+pthread_mutex_t    g_locker;
 
-void		*malloc(size_t size)
+static void		*help_norm_please(size_t size)
 {
-	void			*ptr;
+	void	*ptr;
 
-	size = ALIGN(size);
 	ptr = NULL;
 	if (size <= TINY_SIZE)
 	{
@@ -38,5 +38,16 @@ void		*malloc(size_t size)
 			return (NULL);
 		ptr = get_free_space(size, g_global.large_map, size);
 	}
+	return (ptr);
+}
+
+void		*malloc(size_t size)
+{
+	void			*ptr;
+
+	size = ALIGN(size);
+	pthread_mutex_lock(&g_locker);
+	ptr = help_norm_please(size);
+	pthread_mutex_unlock(&g_locker);
 	return (ptr);
 }

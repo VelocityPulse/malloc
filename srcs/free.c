@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:49:34 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:08:53 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,14 @@ static int		browse_map_membership(void *ptr, t_map *map)
 
 void	free(void *ptr)
 {
+	pthread_mutex_lock(&g_locker);
 	if (ptr == NULL)
 		return ;
-	t_map *map;
-
-	map = g_global.tiny_map;
 	if (browse_map_membership(ptr, g_global.tiny_map) == _SUCCESS_)
 		return ;
 	if (browse_map_membership(ptr, g_global.small_map) == _SUCCESS_)
 		return ;
 	if (browse_map_membership(ptr, g_global.large_map) == _SUCCESS_)
 		return ;
+	pthread_mutex_unlock(&g_locker);
 }
