@@ -6,13 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 15:08:53 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:33:40 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-static void	optimize_and_merge_blocks(t_map *map)
+static void		optimize_and_merge_blocks(t_map *map)
 {
 	t_block		*block;
 
@@ -79,7 +79,7 @@ static int		browse_map_membership(void *ptr, t_map *map)
 	return (_ERROR_);
 }
 
-void	free(void *ptr)
+void			free(void *ptr)
 {
 	pthread_mutex_lock(&g_locker);
 	if (ptr == NULL)

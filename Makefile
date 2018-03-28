@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/28 14:21:15 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/28 15:30:26 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ NAME_FINAL =		libft_malloc.so
 
 FSNAITIZE =			-g3 -fsanitize=address
 
-FLAGS =				#$(FSNAITIZE)#-Wall -Wextra -Werror $(FSNAITIZE)
+FLAGS =				-Wall -Wextra -Werror $(FSNAITIZE)
 
 RM =				rm -rf
 

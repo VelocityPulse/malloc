@@ -6,14 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:12:04 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 14:25:08 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 15:35:29 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../includes/malloc.h"
 
-size_t		new_map(size_t map_type, t_map **map)
+size_t			new_map(size_t map_type, t_map **map)
 {
 	size_t mmap_size;
 
@@ -32,7 +31,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	return (_SUCCESS_);
 }
 
-void	optimize_and_split_blocks(t_block *block)
+static void		optimize_and_split_blocks(t_block *block)
 {
 	t_block		*new_block;
 	int			free_size;
@@ -53,34 +52,35 @@ void	optimize_and_split_blocks(t_block *block)
 	}
 }
 
-void		*find_block(t_block *block, t_map *map, size_t n_s, int size)
+static void		*find_block(t_block *block, t_map *map, size_t n_s, size_t size)
 {
-	while (block) {
+	while (block)
+	{
 		if (block->status == FREE && block->size >= size) {
 			block->size = size;
 			block->status = USED;
 			map->remaining -= n_s;
 			if (block->next)
 				optimize_and_split_blocks(block);
-			return block->ptr;
+			return (block->ptr);
 		}
 		if (block->next &&
 				check_block_in_map(block->next, map) == _ERROR_)
-			return (void *)-1;
+			return ((void *)-1);
 		if (block->next == NULL)
 		{
 			map->remaining -= n_s;
 			block->next = block->ptr + block->size;
 			block = block->next;
 			set_block(block, size);
-			return block->ptr;
+			return (block->ptr);
 		}
 		block = block->next;
 	}
-	return NULL;
+	return (NULL);
 }
 
-void		*check_map(t_map *map, size_t n_s, int size)
+static void		*check_map(t_map *map, size_t n_s, int size)
 {
 	void	*ret;
 	t_block	*block;
@@ -98,17 +98,16 @@ void		*check_map(t_map *map, size_t n_s, int size)
 		if ((int)ret == -1)
 			return (void *)-1;
 		else if (ret != NULL)
-			return ret;
+			return (ret);
 	}
-	return NULL;
+	return (NULL);
 }
 
 void		*get_free_space(size_t map_type, t_map *map, size_t size)
 {
-	t_map *last;
-	t_block *block;
+	t_map	*last;
 	void	*ret;
-	size_t necessary_space;
+	size_t	necessary_space;
 
 	necessary_space = size + sizeof(t_block);
 	last = map;
@@ -121,9 +120,9 @@ void		*get_free_space(size_t map_type, t_map *map, size_t size)
 			map = map->next;
 		}
 		else if ((int)ret == -1)
-			return NULL;
+			return (NULL);
 		else if (ret != NULL)
-			return ret;
+			return (ret);
 	}
 	new_map(map_type, &last->next);
 	return (get_free_space(map_type, last->next, size));
