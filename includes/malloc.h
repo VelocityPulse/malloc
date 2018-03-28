@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:34:51 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:29:28 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,6 @@ typedef struct		s_map
 	struct s_map	*next;
 }					t_map;
 
-typedef struct		s_global
-{
-	t_map			*tiny_map;
-	t_map			*small_map;
-	t_map			*large_map;
-}					t_global;
-
 /*
 ** block size : 32
 */
@@ -83,6 +76,13 @@ typedef struct		s_block
 	char			status;
 	void			*ptr;
 }					t_block;
+
+typedef struct		s_global
+{
+	t_map			*tiny_map;
+	t_map			*small_map;
+	t_map			*large_map;
+}					t_global;
 
 void				show_alloc_mem();
 void				show_full_alloc_mem();
@@ -100,6 +100,7 @@ int					check_pointer_validity(void *ptr, t_map *map);
 
 void				ft_putstr(char *str);
 void				ft_putnbr(int n);
-void		ft_puthexa(unsigned int n);
+void				ft_puthexa(unsigned int n);
+void				*ft_memmove(void *dst, const void *src, size_t len);
 
 #endif

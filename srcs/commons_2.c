@@ -6,11 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:28:44 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:33:48 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 10:28:47 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
+
+
 
 t_block		*set_block(t_block *block, size_t size)
 {
@@ -44,4 +46,38 @@ int		check_pointer_validity(void *ptr, t_map *map)
 		}
 	}
 	return (_ERROR_);
+}
+
+static void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char	*s;
+	char	*d;
+
+	s = (char *)src;
+	d = (char *)dst;
+	if (n == 0 || d == s)
+		return ((void *)d);
+	while (--n)
+		*d++ = *s++;
+	*d = *s;
+	return (dst);
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	char	*d;
+	char	*s;
+
+	if (dst == src && !len)
+		return (NULL);
+	d = (char *)dst;
+	s = (char *)src;
+	if (d > s)
+	{
+		while (len--)
+			d[len] = s[len];
+	}
+	else
+		dst = ft_memcpy(dst, (void *)src, len);
+	return (dst);
 }

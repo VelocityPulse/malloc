@@ -6,13 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/19 13:56:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:33:32 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/27 10:49:34 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-void	optimize_and_merge_blocks(t_map *map)
+static void	optimize_and_merge_blocks(t_map *map)
 {
 	t_block		*block;
 
@@ -30,7 +30,7 @@ void	optimize_and_merge_blocks(t_map *map)
 	}
 }
 
-int		unmap_if_necessary(t_map *map, t_map *last)
+static int		unmap_if_necessary(t_map *map, t_map *last)
 {
 	t_block		*block;
 
@@ -55,8 +55,7 @@ int		unmap_if_necessary(t_map *map, t_map *last)
 	return (_SUCCESS_);
 }
 
-
-int		browse_map_membership(void *ptr, t_map *map)
+static int		browse_map_membership(void *ptr, t_map *map)
 {
 	t_map	*last;
 	t_block *block;

@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/27 10:35:38 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/28 10:43:56 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ endif
 FILES =				malloc.c \
 					find_memory.c \
 					free.c \
+					realloc.c \
 					print_memory.c \
 					print_full_memory.c \
 					commons_1.c \
