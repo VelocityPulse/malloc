@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:12:04 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:35:14 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 13:26:26 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t		new_map(size_t map_type, t_map **map)
 	else if (map_type == SMALL_SIZE)
 		mmap_size = MAP_ALIGN(SMALL_MMAP_SIZE);
 	else
-		mmap_size = map_type + sizeof(t_map) + sizeof(t_block);
+		mmap_size = map_type + sizeof(t_map) + sizeof(t_block) + 1;
 	*map = mmap(NULL, mmap_size, PROT, MAP, -1, 0);
 	if (*map == MAP_FAILED)
 		return (_ERROR_);
