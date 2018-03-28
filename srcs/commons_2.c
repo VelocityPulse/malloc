@@ -6,15 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:28:44 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 10:28:47 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:25:50 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-
-
-t_block		*set_block(t_block *block, size_t size)
+t_block			*set_block(t_block *block, size_t size)
 {
 	block->size = size;
 	block->next = NULL;
@@ -23,7 +21,7 @@ t_block		*set_block(t_block *block, size_t size)
 	return (block);
 }
 
-int			check_block_in_map(t_block *block, t_map *map)
+int				check_block_in_map(t_block *block, t_map *map)
 {
 	if ((void *)block > (void *)map &&
 			(unsigned int)block < (unsigned int)map + map->size)
@@ -31,7 +29,7 @@ int			check_block_in_map(t_block *block, t_map *map)
 	return (_ERROR_);
 }
 
-int		check_pointer_validity(void *ptr, t_map *map)
+int				check_pointer_validity(void *ptr, t_map *map)
 {
 	t_block		*block;
 
@@ -48,7 +46,7 @@ int		check_pointer_validity(void *ptr, t_map *map)
 	return (_ERROR_);
 }
 
-static void	*ft_memcpy(void *dst, const void *src, size_t n)
+static void		*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	char	*s;
 	char	*d;
@@ -63,7 +61,7 @@ static void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void			*ft_memmove(void *dst, const void *src, size_t len)
 {
 	char	*d;
 	char	*s;

@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/28 15:30:26 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/28 16:32:43 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ NAME_FINAL =		libft_malloc.so
 
 FSNAITIZE =			-g3 -fsanitize=address
 
-FLAGS =				-Wall -Wextra -Werror $(FSNAITIZE)
+FLAGS =				-Wall -Wextra -Werror #$(FSNAITIZE)
 
 RM =				rm -rf
 
@@ -61,14 +61,5 @@ clean: objs_rm
 
 fclean: clean
 	$(RM) $(NAME) $(NAME_FINAL)
-	@$(RM) a.out
 
 re: fclean all
-
-r: objs_rm
-	$(RM) $(OBJS) $(NAME) $(NAME_FINAL)
-	@make
-#	gcc main.c
-#	gcc main.c -L ./ -lft_malloc
-#	gcc test3.c -L ./ -lft_malloc
-#	./a.out

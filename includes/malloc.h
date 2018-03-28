@@ -1,24 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   malloc.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 15:26:34 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:31:49 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef MALLOC_H
+# define MALLOC_H
 
 # include <sys/mman.h>
 # include <sys/resource.h>
 # include <unistd.h>
 # include <pthread.h>
-//# include <stdlib.h>
-//# include "../libft/libft.h"
 
 # ifndef RETURN_STAT
 #  define RETURN_STAT
@@ -28,7 +26,6 @@
 #  define _SUCCESS_		0x01
 
 # endif
-
 
 # define PAGE_SIZE (size_t)getpagesize()
 
@@ -49,9 +46,6 @@
 
 # define PROT PROT_WRITE|PROT_READ
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
-
-//debug
-#include "../../Perso/debug.h"
 
 extern struct s_global	g_global;
 extern pthread_mutex_t	g_locker;

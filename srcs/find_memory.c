@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/27 10:12:04 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 15:35:29 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:23:37 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void		optimize_and_split_blocks(t_block *block)
 		new_block = (t_block *)((void *)block->ptr + block->size);
 		free_size = total_space - sizeof(t_block) - block->size - 1;
 		free_size = ALIGN(free_size);
-		if ((void *)new_block + sizeof(t_block) + free_size > (void *)block->next)
+		if ((void *)new_block + sizeof(t_block) + free_size >
+				(void *)block->next)
 			free_size -= 4;
 		set_block(new_block, free_size);
 		new_block->next = block->next;
@@ -56,7 +57,8 @@ static void		*find_block(t_block *block, t_map *map, size_t n_s, size_t size)
 {
 	while (block)
 	{
-		if (block->status == FREE && block->size >= size) {
+		if (block->status == FREE && block->size >= size)
+		{
 			block->size = size;
 			block->status = USED;
 			map->remaining -= n_s;
@@ -92,7 +94,7 @@ static void		*check_map(t_map *map, size_t n_s, int size)
 		{
 			set_block(block, size);
 			map->remaining -= n_s;
-			return block->ptr;
+			return (block->ptr);
 		}
 		ret = find_block(block, map, n_s, size);
 		if ((int)ret == -1)
@@ -103,7 +105,7 @@ static void		*check_map(t_map *map, size_t n_s, int size)
 	return (NULL);
 }
 
-void		*get_free_space(size_t map_type, t_map *map, size_t size)
+void			*get_free_space(size_t map_type, t_map *map, size_t size)
 {
 	t_map	*last;
 	void	*ret;

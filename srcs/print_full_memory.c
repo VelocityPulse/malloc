@@ -6,13 +6,13 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/16 13:53:25 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/27 10:36:15 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 16:27:40 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/malloc.h"
 
-static void	print_full_block(t_block *block, int *total)
+static void		print_full_block(t_block *block, int *total)
 {
 	int		total_block;
 
@@ -39,9 +39,10 @@ static void	print_full_block(t_block *block, int *total)
 	ft_putstr("\n");
 }
 
-static void	print_map_tiny(t_map *map, int *total)
+static void		print_map_tiny(t_map *map, int *total)
 {
-	t_block *block;
+	t_block		*block;
+
 	while (map)
 	{
 		ft_putstr("TINY : 0x");
@@ -53,9 +54,10 @@ static void	print_map_tiny(t_map *map, int *total)
 	}
 }
 
-static void	print_map_small(t_map *map, int *total)
+static void		print_map_small(t_map *map, int *total)
 {
-	t_block *block;
+	t_block		*block;
+
 	while (map)
 	{
 		ft_putstr("SMALL : 0x");
@@ -65,11 +67,12 @@ static void	print_map_small(t_map *map, int *total)
 		print_full_block(block, total);
 		map = map->next;
 	}
-
 }
 
-static void	print_map_large(t_map *map, int *total) {
-	t_block *block;
+static void		print_map_large(t_map *map, int *total)
+{
+	t_block		*block;
+
 	while (map)
 	{
 		ft_putstr("LARGE : 0x");
@@ -81,7 +84,7 @@ static void	print_map_large(t_map *map, int *total) {
 	}
 }
 
-void	show_full_alloc_mem()
+void			show_full_alloc_mem(void)
 {
 	int		total;
 
