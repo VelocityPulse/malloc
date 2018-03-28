@@ -6,7 +6,7 @@
 /*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/02 12:11:40 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 13:54:33 by cchameyr         ###   ########.fr       */
+/*   Updated: 2018/03/28 14:26:50 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define BLOCK_HEADER sizeof(t_block)
 
 # define TINY_SIZE 1024
-# define SMALL_SIZE (TINY_SIZE * 30)
+# define SMALL_SIZE (TINY_SIZE * 32)
 
 # define TINY_MMAP_SIZE (MAP_HEADER + ((BLOCK_HEADER + TINY_SIZE) * 100))
 # define SMALL_MMAP_SIZE (MAP_HEADER + ((BLOCK_HEADER + SMALL_SIZE) * 100))
@@ -50,7 +50,7 @@
 # define MAP MAP_ANONYMOUS|MAP_PRIVATE
 
 //debug
-//#include "../../Perso/debug.h"
+#include "../../Perso/debug.h"
 
 extern struct s_global	g_global;
 

@@ -6,7 +6,7 @@
 #    By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/21 12:14:25 by cchameyr          #+#    #+#              #
-#    Updated: 2018/03/28 13:24:07 by cchameyr         ###   ########.fr        #
+#    Updated: 2018/03/28 14:21:15 by cchameyr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,5 +70,5 @@ r: objs_rm
 	@make
 #	gcc main.c
 #	gcc main.c -L ./ -lft_malloc
-	gcc test3.c -L ./ -lft_malloc
+#	gcc test3.c -L ./ -lft_malloc
 #	./a.out
