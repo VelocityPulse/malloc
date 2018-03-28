@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   test3.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchameyr <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: byoung-w <byoung-w@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/28 12:31:19 by cchameyr          #+#    #+#             */
-/*   Updated: 2018/03/28 13:44:50 by cchameyr         ###   ########.fr       */
+/*   Created: 2014/09/08 14:49:06 by byoung-w          #+#    #+#             */
+/*   Updated: 2018/03/28 14:01:24 by cchameyr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/malloc.h"
+#include "../includes/malloc.h"
 #include <string.h>
 
 #define M1 (1024 * 1024)
 
-void        print(char *s)
+void		print(char *s)
 {
 	write(1, s, strlen(s));
 }
 
-int            main(void)
+int			main(void)
 {
-	char    *addr1;
-	char    *addr3;
+	char	*addr1;
+	char	*addr3;
 
 	addr1 = (char *)malloc(16 * M1);
 	strcpy(addr1, "Bonjours\n");
